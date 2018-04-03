@@ -1,20 +1,22 @@
 <?php
-// Returns unique values in array by a key
-function array_unique_by_key(&$array, $key) {
-    $tmp = array();
-    $result = array();
-    foreach ($array as $value) {
-        if (!in_array($value[$key], $tmp)) {
-            array_push($tmp, $value[$key]);
-            array_push($result, $value);
-        }
+
+// Found this particular function on StackOverflow and although it doesn't 
+// work consistently, it was the only way I was able to surpass 403 error
+function http_get_contents($url) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_TIMEOUT, 1);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    if(FALSE === ($retval = curl_exec($ch))) {
+        echo curl_error($ch);
+    } else {
+        return $retval;
     }
-    return $array = $result;
 }
 
 function get_data_for_state($state) {
   $url = 'https://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries?$filter='.urlencode('state eq \''.strtoupper($state)).'\'&$top=0&$orderby=fyDeclared';
-  $arr = json_decode(file_get_contents($url),true);
+  $arr = json_decode(http_get_contents($url),true);
   $arr = array_slice($arr,1)['DisasterDeclarationsSummaries'];
   return $arr;
 }

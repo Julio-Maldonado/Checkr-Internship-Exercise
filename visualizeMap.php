@@ -13,12 +13,26 @@ function color_map($state, &$states_arr) {
   return "#6495ED";
 }
 
+// Found this particular function on StackOverflow and although it doesn't 
+// work consistently, it was the only way I was able to surpass 403 error
+function http_get_contents($url) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_TIMEOUT, 1);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    if(FALSE === ($retval = curl_exec($ch))) {
+        echo curl_error($ch);
+    } else {
+        return $retval;
+    }
+}
+
 // Initialize array and get all disasters documented by FEMA
 $states_arr = [];
-$MAX_DISASTERS = json_decode(file_get_contents('https://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries?$inlinecount=allpages&$top=1'),true)['metadata']['count'];
+$MAX_DISASTERS = json_decode(http_get_contents('https://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries?$inlinecount=allpages&$top=1'))['metadata']['count'];
 for ($i = 0; $i <= $MAX_DISASTERS; $i += 1000) {
   $fema_url = 'https://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries?$skip='.$i.'&$orderby=state';
-  $fema_arr = json_decode(file_get_contents($fema_url),true);
+  $fema_arr = json_decode(http_get_contents($fema_url),true);
   $fema_arr = array_slice($fema_arr,1)['DisasterDeclarationsSummaries'];
   // Increment the states disasters every time the state is seen in the sorted array,
   // else start a new entry and increment that entry
