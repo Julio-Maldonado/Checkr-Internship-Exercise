@@ -1,3 +1,3 @@
 <?php 
-include_once("visualizeMap.php"); 
+include_once("home.html"); 
 ?>
