@@ -808,7 +808,7 @@ var simplemaps_usmap_mapdata={
     </style>
   </head>
   <body>
-  <h1>HTML5/Javascript USA Map</h1>
+  <h3>USA Map Containing Color Coded Distribution of FEMA Disaster Declerations Summaries Data</h3>
     <div id="mapDiv">
     <div id="map"></div>
     </div>
