@@ -1,37 +1,24 @@
 <?php
-// Returns unique values in array by a key
-function array_unique_by_key (&$array, $key) {
-    $tmp = array();
-    $result = array();
-    foreach ($array as $value) {
-        if (!in_array($value[$key], $tmp)) {
-            array_push($tmp, $value[$key]);
-            array_push($result, $value);
-        }
-    }
-    return $array = $result;
-}
+
 // Returns color dependent on how many disasters in specified state
 function color_map($state, &$states_arr) {
-  if ($states_arr[$state] > 3500)
+  if ($states_arr[$state] > 2800)
     return "#191970";
-  if ($states_arr[$state] > 2500)
+  if ($states_arr[$state] > 2100)
     return "#0000CD";
-  if ($states_arr[$state] > 2000)
+  if ($states_arr[$state] > 1400)
     return "#4169E1";
-  if ($states_arr[$state] > 1500)
+  if ($states_arr[$state] > 700)
     return "#4682B4";
-  if ($states_arr[$state] > 1000)
-    return "#87CEEB";
-  if ($states_arr[$state] > 500)
-    return "#B0E0E6";
-  return "#F0F8FF";
+  return "#6495ED";
 }
-// Initialize array and get all >48000 disasters documented by FEMA
+
+// Initialize array and get all disasters documented by FEMA
 $states_arr = [];
-for ($i = 0; $i <= 48000; $i += 1000) {
+$MAX_DISASTERS = json_decode(file_get_contents('https://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries?$inlinecount=allpages&$top=1'),true)['metadata']['count'];
+for ($i = 0; $i <= $MAX_DISASTERS; $i += 1000) {
   $fema_url = 'https://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries?$skip='.$i.'&$orderby=state';
-  $fema_arr = json_decode(file_get_contents($fema_url,true),true);
+  $fema_arr = json_decode(file_get_contents($fema_url),true);
   $fema_arr = array_slice($fema_arr,1)['DisasterDeclarationsSummaries'];
   // Increment the states disasters every time the state is seen in the sorted array,
   // else start a new entry and increment that entry
@@ -43,19 +30,6 @@ for ($i = 0; $i <= 48000; $i += 1000) {
   }
 }
 
-/*
-*** This should return all JSON objects, but I believe the request is too large
-*** to work on my school's server...try later when deployed as Heroku/PHP app
-$fema_url = 'https://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries?$top=0&$orderby=state';
-$fema_arr = json_decode(file_get_contents($fema_url,true),true);
-$fema_arr = array_slice($fema_arr,1)['DisasterDeclarationsSummaries'];
-foreach($fema_arr as $item) {
-  if ($item["state"] != $state) {
-    $state = $item["state"];
-  }
-  $states_arr[$state]++;
-}
-*/
 ?>
 
 <!DOCTYPE html>
@@ -75,13 +49,13 @@ var simplemaps_usmap_mapdata={
     popups: "detect",
     
     //State defaults
-    state_description: "Data value is #data#",
+    state_description: "Click Me To See Filterable Statistics",
     state_color: "#88A4BC",
     state_hover_color: "off",
     state_url: "",
     border_size: 1.5,
     all_states_inactive: "no",
-    all_states_zoomable: "yes",
+    all_states_zoomable: "no",
     
     //Location defaults
     location_description: "Add location markers using latitude and longitude!",
@@ -91,7 +65,6 @@ var simplemaps_usmap_mapdata={
     location_url: "",
     location_size: 25,
     location_type: "square",
-    location_image_source: "frog.png",
     location_border_color: "#FFFFFF",
     location_border: 2,
     location_hover_border: 2.5,
@@ -129,8 +102,7 @@ var simplemaps_usmap_mapdata={
     //Advanced settings
     div: "map",
     auto_load: "yes",
-    url_new_tab: "yes",
-    images_directory: "/static/lib/simplemaps/map_images/",
+    url_new_tab: "no",
     fade_time: 0.1,
     import_labels: "no",
     link_text: "View Website",
@@ -144,289 +116,288 @@ var simplemaps_usmap_mapdata={
     HI: {     // Call color_map here to find appropriate color
       color: <?php echo '"'.color_map('HI', $states_arr).'",'; ?>
       name: "Hawaii",
-      description: "Data value is 23"
-    },
+      url: "displayData.php?state=HI"    },
     AK: {
       color: <?php echo '"'.color_map('AK', $states_arr).'",'; ?>
       name: "Alaska",
-      description: "Data value is 50"
+      url: "displayData.php?state=AK"
     },
     FL: {
       color: <?php echo '"'.color_map('FL', $states_arr).'",'; ?>
       inactive: "no",
       name: "Florida",
-      description: "Data value is 90"
+      url: "displayData.php?state=FL"
     },
     NH: {
       color: <?php echo '"'.color_map('NH', $states_arr).'",'; ?>
       name: "New Hampshire",
-      description: "Data value is 840"
+      url: "displayData.php?state=NH"
     },
     VT: {
       color: <?php echo '"'.color_map('VT', $states_arr).'",'; ?>
       name: "Vermont",
-      description: "Data value is 1"
+      url: "displayData.php?state=VT"
     },
     ME: {
       color: <?php echo '"'.color_map('ME', $states_arr).'",'; ?>
       name: "Maine",
-      description: "Data value is 32"
+      url: "displayData.php?state=ME"
     },
     RI: {
       color: <?php echo '"'.color_map('RI', $states_arr).'",'; ?>
       name: "Rhode Island",
-      description: "Data value is 1568"
+      url: "displayData.php?state=RI"
     },
     NY: {
       color: <?php echo '"'.color_map('NY', $states_arr).'",'; ?>
       name: "New York",
-      description: "Data value is 81"
+      url: "displayData.php?state=NY"
     },
     PA: {
       color: <?php echo '"'.color_map('PA', $states_arr).'",'; ?>
       name: "Pennsylvania",
-      description: "Data value is 489"
+      url: "displayData.php?state=PA"
     },
     NJ: {
       color: <?php echo '"'.color_map('NJ', $states_arr).'",'; ?>
       name: "New Jersey",
-      description: "Data value is 16"
+      url: "displayData.php?state=NJ"
     },
     DE: {
       color: <?php echo '"'.color_map('DE', $states_arr).'",'; ?>
       name: "Delaware",
-      description: "Data value is 234"
+      url: "displayData.php?state=DE"
     },
     MD: {
       color: <?php echo '"'.color_map('MD', $states_arr).'",'; ?>
       name: "Maryland",
-      description: "Data value is 98"
+      url: "displayData.php?state=MD"
     },
     VA: {
       color: <?php echo '"'.color_map('VA', $states_arr).'",'; ?>
       name: "Virginia",
-      description: "Data value is 23"
+      url: "displayData.php?state=VA"
     },
     WV: {
       color: <?php echo '"'.color_map('WV', $states_arr).'",'; ?>
       name: "West Virginia",
-      description: "Data value is 50"
+      url: "displayData.php?state=WV"
     },
     OH: {
       color: <?php echo '"'.color_map('OH', $states_arr).'",'; ?>
       name: "Ohio",
-      description: "Data value is 90"
+      url: "displayData.php?state=OH"
     },
     IN: {
       color: <?php echo '"'.color_map('IN', $states_arr).'",'; ?>
       name: "Indiana",
-      description: "Data value is 840"
+      url: "displayData.php?state=IN"
     },
     IL: {
       color: <?php echo '"'.color_map('IL', $states_arr).'",'; ?>
       name: "Illinois",
-      description: "Data value is 1"
+      url: "displayData.php?state=IL"
     },
     CT: {
       color: <?php echo '"'.color_map('CT', $states_arr).'",'; ?>
       name: "Connecticut",
-      description: "Data value is 32"
+      url: "displayData.php?state=CT"
     },
     WI: {
       color: <?php echo '"'.color_map('WI', $states_arr).'",'; ?>
       name: "Wisconsin",
-      description: "Data value is 1568"
+      url: "displayData.php?state=WI"
     },
     NC: {
       color: <?php echo '"'.color_map('NC', $states_arr).'",'; ?>
       name: "North Carolina",
-      description: "Data value is 81"
+      url: "displayData.php?state=NC"
     },
     DC: {
       color: <?php echo '"'.color_map('DC', $states_arr).'",'; ?>
       name: "District of Columbia",
-      description: "Data value is 489"
+      url: "displayData.php?state=DC"
     },
     MA: {
       color: <?php echo '"'.color_map('MA', $states_arr).'",'; ?>
       name: "Massachusetts",
-      description: "Data value is 16"
+      url: "displayData.php?state=MA"
     },
     TN: {
       color: <?php echo '"'.color_map('TN', $states_arr).'",'; ?>
       name: "Tennessee",
-      description: "Data value is 234"
+      url: "displayData.php?state=TN"
     },
     AR: {
       color: <?php echo '"'.color_map('AR', $states_arr).'",'; ?>
       name: "Arkansas",
-      description: "Data value is 98"
+      url: "displayData.php?state=AR"
     },
     MO: {
       color: <?php echo '"'.color_map('MO', $states_arr).'",'; ?>
       name: "Missouri",
-      description: "Data value is 23"
+      url: "displayData.php?state=MO"
     },
     GA: {
       color: <?php echo '"'.color_map('AG', $states_arr).'",'; ?>
       name: "Georgia",
-      description: "Data value is 50"
+      url: "displayData.php?state=GA"
     },
     SC: {
       color: <?php echo '"'.color_map('SC', $states_arr).'",'; ?>
       name: "South Carolina",
-      description: "Data value is 90"
+      url: "displayData.php?state=SC"
     },
     KY: {
       color: <?php echo '"'.color_map('KY', $states_arr).'",'; ?>
-      description: "Data value is 840",
       name: "Kentucky",
+      url: "displayData.php?state=KY",
       zoomable: "no"
     },
     AL: {
       color: <?php echo '"'.color_map('AL', $states_arr).'",'; ?>
       name: "Alabama",
-      description: "Data value is 1"
+      url: "displayData.php?state=AL"
     },
     LA: {
       color: <?php echo '"'.color_map('LA', $states_arr).'",'; ?>
       name: "Louisiana",
-      description: "Data value is 32"
+      url: "displayData.php?state=LA"
     },
     MS: {
       color: <?php echo '"'.color_map('MS', $states_arr).'",'; ?>
       name: "Mississippi",
-      description: "Data value is 1568"
+      url: "displayData.php?state=MS"
     },
     IA: {
       color: <?php echo '"'.color_map('IA', $states_arr).'",'; ?>
       name: "Iowa",
-      description: "Data value is 81"
+      url: "displayData.php?state=IA"
     },
     MN: {
       color: <?php echo '"'.color_map('MN', $states_arr).'",'; ?>
       name: "Minnesota",
-      description: "Data value is 489"
+      url: "displayData.php?state=MN"
     },
     OK: {
       color: <?php echo '"'.color_map('OK', $states_arr).'",'; ?>
       name: "Oklahoma",
-      description: "Data value is 16"
+      url: "displayData.php?state=OK"
     },
     TX: {
       color: <?php echo '"'.color_map('TX', $states_arr).'",'; ?>
       name: "Texas",
-      description: "Data value is 234"
+      url: "displayData.php?state=TX"
     },
     NM: {
       color: <?php echo '"'.color_map('NM', $states_arr).'",'; ?>
       name: "New Mexico",
-      description: "Data value is 98"
+      url: "displayData.php?state=NM"
     },
     KS: {
       color: <?php echo '"'.color_map('KS', $states_arr).'",'; ?>
       name: "Kansas",
-      description: "Data value is 23"
+      url: "displayData.php?state=KS"
     },
     NE: {
       color: <?php echo '"'.color_map('NE', $states_arr).'",'; ?>
       name: "Nebraska",
-      description: "Data value is 50"
+      url: "displayData.php?state=NE"
     },
     SD: {
       color: <?php echo '"'.color_map('SD', $states_arr).'",'; ?>
       name: "South Dakota",
-      description: "Data value is 90"
+      url: "displayData.php?state=SD"
     },
     ND: {
       color: <?php echo '"'.color_map('ND', $states_arr).'",'; ?>
       name: "North Dakota",
-      description: "Data value is 840"
+      url: "displayData.php?state=ND"
     },
     WY: {
       color: <?php echo '"'.color_map('WY', $states_arr).'",'; ?>
       name: "Wyoming",
-      description: "Data value is 1"
+      url: "displayData.php?state=WY"
     },
     MT: {
       color: <?php echo '"'.color_map('MT', $states_arr).'",'; ?>
       name: "Montana",
-      description: "Data value is 32"
+      url: "displayData.php?state=MT"
     },
     CO: {
       color: <?php echo '"'.color_map('CO', $states_arr).'",'; ?>
       name: "Colorado",
-      description: "Data value is 1568"
+      url: "displayData.php?state=CO"
     },
     UT: {
       color: <?php echo '"'.color_map('UT', $states_arr).'",'; ?>
       name: "Utah",
-      description: "Data value is 81"
+      url: "displayData.php?state=UT"
     },
     AZ: {
       color: <?php echo '"'.color_map('AZ', $states_arr).'",'; ?>
       name: "Arizona",
-      description: "Data value is 489"
+      url: "displayData.php?state=AZ"
     },
     NV: {
       color: <?php echo '"'.color_map('NV', $states_arr).'",'; ?>
       name: "Nevada",
-      description: "Data value is 16"
+      url: "displayData.php?state=NV"
     },
     OR: {
       color: <?php echo '"'.color_map('OR', $states_arr).'",'; ?>
       name: "Oregon",
-      description: "Data value is 234"
+      url: "displayData.php?state=OR"
     },
     WA: {
       color: <?php echo '"'.color_map('WA', $states_arr).'",'; ?>
       name: "Washington",
-      description: "Data value is 98"
+      url: "displayData.php?state=WA"
     },
     CA: {
       color: <?php echo '"'.color_map('CA', $states_arr).'",'; ?>
       name: "California",
-      description: "Data value is 23"
+      url: "displayData.php?state=CA"
     },
     MI: {
       color: <?php echo '"'.color_map('MI', $states_arr).'",'; ?>
       name: "Michigan",
-      description: "Data value is 50"
+      url: "displayData.php?state=MI"
     },
     ID: {
       color: <?php echo '"'.color_map('ID', $states_arr).'",'; ?>
       name: "Idaho",
-      description: "Data value is 90"
+      url: "displayData.php?state=ID"
     },
     GU: {
       color: <?php echo '"'.color_map('GU', $states_arr).'",'; ?>
       hide: "yes",
       name: "Guam",
-      description: "Data value is 840"
+      url: "displayData.php?state=GU"
     },
     VI: {
       color: <?php echo '"'.color_map('VI', $states_arr).'",'; ?>
       hide: "yes",
       name: "Virgin Islands",
-      description: "Data value is 1"
+      url: "displayData.php?state=VI"
     },
     PR: {
       color: <?php echo '"'.color_map('PR', $states_arr).'",'; ?>
       hide: "yes",
       name: "Puerto Rico",
-      description: "Data value is 32"
+      url: "displayData.php?state=PR"
     },
     MP: {
       color: <?php echo '"'.color_map('MP', $states_arr).'",'; ?>
       hide: "yes",
       name: "Northern Mariana Islands",
-      description: "Data value is 1568"
+      url: "displayData.php?state=MP"
     },
     AS: {
       color: <?php echo '"'.color_map('AS', $states_arr).'",'; ?>
       hide: "yes",
       name: "American Samoa",
-      description: "Data value is 81"
+      url: "displayData.php?state=AS"
     }
   },
   locations: {
@@ -815,10 +786,18 @@ var simplemaps_usmap_mapdata={
 };
     </script>
     <script src="usmap.js"></script>
+    <style>
+      #mapDiv {
+        height: 75%;
+        width: 75%;
+      }
+    </style>
   </head>
   <body>
   <h1>HTML5/Javascript USA Map</h1>
+    <div id="mapDiv">
     <div id="map"></div>
+    </div>
     <style type="text/css">
 .legend{color: black; width: 100%; font-family: arial; font-size: 14px;}    
 .legend_color {display: table; width: 100%; background: white; list-style: none; margin: 0px; padding: 0px; }
@@ -828,13 +807,12 @@ var simplemaps_usmap_mapdata={
 </style>
 <div class="legend">
   <ul class="legend_label">
-    <li>23</li><li>50</li><li>90</li><li>489</li>
+    <li>700</li><li>1400</li><li>2100</li><li>2800</li>
   </ul>
   <ul class="legend_color">
-    <li style="background-color: #66c7ff"></li><li style="background-color: #33b5ff"></li><li style="background-color: #00a2ff"></li><li style="background-color: #0082cc"></li><li style="background-color: #006199"></li>
+    <li style="background-color: #6495ED"></li><li style="background-color: #4682B4"></li><li style="background-color: #4169E1"></li><li style="background-color: #0000CD"></li><li style="background-color: #191970"></li>
   </ul>
-</div>
-    
+</div>      
       <p>This map was created and can be edited at <a href="http://simplemaps.com/custom/us/SFRXcTHp">http://simplemaps.com/custom/us/SFRXcTHp</a>
     
     
