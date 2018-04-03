@@ -41,6 +41,8 @@ if(!empty($_GET['state'])) {
 	$data = get_data_for_state($_GET['state']);
 //	print_r($data);
 	$year_graph_arr = get_data_for_graph($data,'fyDeclared');	
+} else {
+	$year_graph_arr = [];
 }
 ?>
 
