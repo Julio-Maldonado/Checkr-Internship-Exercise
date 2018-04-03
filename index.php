@@ -1,32 +1,5 @@
 <?php 
-include_once("home.html"); 
-
-function array_unique_by_key (&$array, $key) {
-    $tmp = array();
-    $result = array();
-    foreach ($array as $value) {
-        if (!in_array($value[$key], $tmp)) {
-            array_push($tmp, $value[$key]);
-            array_push($result, $value);
-        }
-    }
-    return $array = $result;
-}
-
-$states_arr = [];
-for ($i = 0; $i <= 48000; $i += 1000) {
-	$fema_url = 'https://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries?$skip='.$i.'&$orderby=state';
-	$fema_arr = json_decode(file_get_contents($fema_url,true),true);
-	$fema_arr = array_slice($fema_arr,1)['DisasterDeclarationsSummaries'];
-	foreach($fema_arr as $item) {
-		if ($item["state"] != $state) {
-			echo 'There are '.$states_arr[$state].' disasters in '.$state.'<br/>';
-			$state = $item["state"];
-		}
-		$states_arr[$state]++;
-	}
-}
-
+include_once("visualizeMap.php"); 
 
 /*
 if(!empty($_GET['state'])) {
