@@ -1,19 +1,6 @@
 <?php
 
-// Found this particular function on StackOverflow and although it doesn't 
-// work consistently, it was the only way I was able to surpass 403 error
-function http_get_contents($url) {
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_TIMEOUT, 1);
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    if(FALSE === ($retval = curl_exec($ch))) {
-        echo curl_error($ch);
-    } else {
-        return $retval;
-    }
-}
-
+// Need to substitute this FEMA API call for one I create
 function get_data_for_state($state) {
   $url = 'https://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries?$filter='.urlencode('state eq \''.strtoupper($state)).'\'&$top=0&$orderby=fyDeclared';
   $arr = json_decode(http_get_contents($url),true);
@@ -32,16 +19,8 @@ function get_data_for_graph(&$arr,$key) {
 	return $a;
 }
 
-/*  foreach($fema_arr as $item) {
-    if ($item["state"] != $state) {
-      $state = $item["state"];
-    }
-    $states_arr[$state]++;
-  }*/
-
 if(!empty($_GET['state'])) {
 	$data = get_data_for_state($_GET['state']);
-//	print_r($data);
 	$year_graph_arr = get_data_for_graph($data,'fyDeclared');	
 } else {
 	$year_graph_arr = [];

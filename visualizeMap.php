@@ -1,5 +1,8 @@
 <?php
-
+// Although setting infinite memory limit is usually bad, in this case
+// we know we only need a finite amount of more memory since my university's
+// server maxes out at 72 bytes so its ok
+ini_set('memory_limit', '-1');
 // Returns color dependent on how many disasters in specified state
 function color_map($state, &$states_arr) {
   if ($states_arr[$state] > 2800)
@@ -13,37 +16,15 @@ function color_map($state, &$states_arr) {
   return "#6495ED";
 }
 
-// Found this particular function on StackOverflow and although it doesn't 
-// work consistently, it was the only way I was able to surpass 403 error
-function http_get_contents($url) {
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_TIMEOUT, 1);
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    if(FALSE === ($retval = curl_exec($ch))) {
-        echo curl_error($ch);
-    } else {
-        return $retval;
-    }
-}
-
-// Initialize array and get all disasters documented by FEMA
+// Get data from orderedData API endpoint and parse through it incrementing every states counter
 $states_arr = [];
-$MAX_DISASTERS = json_decode(http_get_contents('https://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries?$inlinecount=allpages&$top=1'))['metadata']['count'];
-for ($i = 0; $i <= $MAX_DISASTERS; $i += 1000) {
-  $fema_url = 'https://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries?$skip='.$i.'&$orderby=state';
-  $fema_arr = json_decode(http_get_contents($fema_url),true);
-  $fema_arr = array_slice($fema_arr,1)['DisasterDeclarationsSummaries'];
-  // Increment the states disasters every time the state is seen in the sorted array,
-  // else start a new entry and increment that entry
-  foreach($fema_arr as $item) {
-    if ($item["state"] != $state) {
-      $state = $item["state"];
-    }
-    $states_arr[$state]++;
+$arr = json_decode(file_get_contents('http://projects.cse.tamu.edu/juliom72/orderedData.php?$key=state'),true);
+foreach($arr as $item) {
+  if ($item["state"] != $state) {
+    $state = $item["state"];
   }
+  $states_arr[$state]++;
 }
-
 ?>
 
 <!DOCTYPE html>

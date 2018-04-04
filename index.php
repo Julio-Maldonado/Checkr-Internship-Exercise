@@ -1,3 +1,3 @@
 <?php 
-include_once("visualizeMap.php"); 
+require_once('visualizeMap.php');
 ?>
