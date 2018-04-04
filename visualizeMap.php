@@ -16,15 +16,21 @@ function color_map($state, &$states_arr) {
   return "#6495ED";
 }
 
-// Get data from orderedData API endpoint and parse through it incrementing every states counter
-$states_arr = [];
-$arr = json_decode(file_get_contents('http://projects.cse.tamu.edu/juliom72/orderedData.php?$key=state'),true);
-foreach($arr as $item) {
-  if ($item["state"] != $state) {
-    $state = $item["state"];
+// Iterates through arr incrementing every states counter at requested key
+function get_data_for_graph(&$arr,$key) {
+  $a = [];
+  foreach($arr as $item) {
+    if($item[$key] != $temp) {
+      $temp = $item[$key];
+    } 
+    $a[$temp]++;
   }
-  $states_arr[$state]++;
+  return $a;
 }
+
+// Get data from orderedData API endpoint and then calculate data
+$arr = json_decode(file_get_contents('http://projects.cse.tamu.edu/juliom72/modifyData.php?$key=state'),true);
+$states_arr = get_data_for_graph($arr, 'state');
 ?>
 
 <!DOCTYPE html>

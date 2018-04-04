@@ -1,13 +1,13 @@
 <?php
 
-// Need to substitute this FEMA API call for one I create
+// Gets the data for the requested state and returns it sorted by fyDeclared
 function get_data_for_state($state) {
-  $url = 'https://www.fema.gov/api/open/v1/DisasterDeclarationsSummaries?$filter='.urlencode('state eq \''.strtoupper($state)).'\'&$top=0&$orderby=fyDeclared';
-  $arr = json_decode(http_get_contents($url),true);
-  $arr = array_slice($arr,1)['DisasterDeclarationsSummaries'];
+  $url = 'http://projects.cse.tamu.edu/juliom72/modifyData.php?$key=fyDeclared&$filter='.$state;
+  $arr = json_decode(file_get_contents($url),true);
   return $arr;
 }
 
+// Iterates through arr incrementing every states counter at requested key
 function get_data_for_graph(&$arr,$key) {
 	$a = [];
 	foreach($arr as $item) {
