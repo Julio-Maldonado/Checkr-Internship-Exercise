@@ -1,6 +1,6 @@
 <?php
 
-// Gets the data for the requested state and returns it sorted by fyDeclared
+// Gets the data for the requested state from my API endpoint and returns it sorted by fyDeclared
 function get_data_for_state($state) {
   $url = 'http://projects.cse.tamu.edu/juliom72/modifyData.php?$key=fyDeclared&$filter='.$state;
   $arr = json_decode(file_get_contents($url),true);
@@ -52,6 +52,7 @@ else {
 		$first = $second;
 		$second = $temp;
 	}
+	// Get graph data
 	$year_graph_arr = get_data_in_range($year_graph_arr,$first,$second);
 }
 ?>
@@ -63,6 +64,7 @@ else {
 	<?php echo '<h3>Graph for '.$_GET['state'].'</h3>'?>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
+		// Used Google Charts 
 	    google.charts.load('current', {'packages':['line']});
 		google.charts.setOnLoadCallback(drawChart);
 
@@ -96,6 +98,8 @@ else {
 	<option value="decimal"></option>
 	<div id="line_top_x"></div>
 	<?php 
+	/* If date has not been filtered, display a form to filter the date, otherwise
+	   display go back */
 	if (!$flag) {
 		echo '<p>Please input two numbers in the range of '.reset(array_keys($year_graph_arr)).' and '.end(array_keys($year_graph_arr)).'</p>';
 		echo '

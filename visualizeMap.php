@@ -28,7 +28,7 @@ function get_data_for_graph(&$arr,$key) {
   return $a;
 }
 
-// Get data from orderedData API endpoint and then calculate data
+// Get data from modifyData API endpoint and then calculate data
 $arr = json_decode(file_get_contents('http://projects.cse.tamu.edu/juliom72/modifyData.php?$key=state'),true);
 $states_arr = get_data_for_graph($arr, 'state');
 ?>
@@ -114,7 +114,7 @@ var simplemaps_usmap_mapdata={
     border_hover_size: "3"
   },
   state_specific: {
-    HI: {     // Call color_map here to find appropriate color
+    HI: {     // Call color_map here to find appropriate color and have link that passes state via GET
       color: <?php echo '"'.color_map('HI', $states_arr).'",'; ?>
       name: "Hawaii",
       url: "displayData.php?state=HI"    },
@@ -814,6 +814,7 @@ var simplemaps_usmap_mapdata={
     <li style="background-color: #6495ED"></li><li style="background-color: #4682B4"></li><li style="background-color: #4169E1"></li><li style="background-color: #0000CD"></li><li style="background-color: #191970"></li>
   </ul>
 </div>      
+      <p>I used SimpleMaps to create this map and edited some of their code, but the text below is best left where it is.</p> <br/>
       <p>This map was created and can be edited at <a href="http://simplemaps.com/custom/us/SFRXcTHp">http://simplemaps.com/custom/us/SFRXcTHp</a>
     
     

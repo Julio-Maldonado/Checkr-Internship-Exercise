@@ -8,8 +8,8 @@ function ascSort($item1,$item2) {
 	return ($item1[$key] > $item2[$key]) ? 1 : -1;
 }
 
+// Get copy of data and sort it by $key so long as $key exists
 $returned_data = $data;
-
 if(!empty($_GET['$key'])) {
 	$k = $_GET['$key'];
 	uasort($returned_data,'ascSort');
@@ -28,6 +28,7 @@ if(!empty($_GET['$filter'])) {
 	}
 	$returned_data = $temp_data;
 }
+
 // Encode $returned_data and print it so the data can be retrieved
 $json = json_encode($returned_data, JSON_PRETTY_PRINT);
 echo $json;
