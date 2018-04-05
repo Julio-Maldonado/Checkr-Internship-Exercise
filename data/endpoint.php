@@ -33,5 +33,4 @@ if(!empty($_GET['$filter'])) {
 $json = json_encode($returned_data, JSON_PRETTY_PRINT);
 echo $json;
 
-
 ?>

@@ -29,7 +29,7 @@ function get_data_for_graph(&$arr,$key) {
 }
 
 // Get data from modifyData API endpoint and then calculate data
-$arr = json_decode(file_get_contents('http://projects.cse.tamu.edu/juliom72/modifyData.php?$key=state'),true);
+$arr = json_decode(file_get_contents('http://projects.cse.tamu.edu/juliom72/data/endpoint.php?$key=state'),true);
 $states_arr = get_data_for_graph($arr, 'state');
 ?>
 
@@ -117,288 +117,288 @@ var simplemaps_usmap_mapdata={
     HI: {     // Call color_map here to find appropriate color and have link that passes state via GET
       color: <?php echo '"'.color_map('HI', $states_arr).'",'; ?>
       name: "Hawaii",
-      url: "displayData.php?state=HI"    },
+      url: "display/displayData.php?state=HI"    },
     AK: {
       color: <?php echo '"'.color_map('AK', $states_arr).'",'; ?>
       name: "Alaska",
-      url: "displayData.php?state=AK"
+      url: "display/displayData.php?state=AK"
     },
     FL: {
       color: <?php echo '"'.color_map('FL', $states_arr).'",'; ?>
       inactive: "no",
       name: "Florida",
-      url: "displayData.php?state=FL"
+      url: "display/displayData.php?state=FL"
     },
     NH: {
       color: <?php echo '"'.color_map('NH', $states_arr).'",'; ?>
       name: "New Hampshire",
-      url: "displayData.php?state=NH"
+      url: "display/displayData.php?state=NH"
     },
     VT: {
       color: <?php echo '"'.color_map('VT', $states_arr).'",'; ?>
       name: "Vermont",
-      url: "displayData.php?state=VT"
+      url: "display/displayData.php?state=VT"
     },
     ME: {
       color: <?php echo '"'.color_map('ME', $states_arr).'",'; ?>
       name: "Maine",
-      url: "displayData.php?state=ME"
+      url: "display/displayData.php?state=ME"
     },
     RI: {
       color: <?php echo '"'.color_map('RI', $states_arr).'",'; ?>
       name: "Rhode Island",
-      url: "displayData.php?state=RI"
+      url: "display/displayData.php?state=RI"
     },
     NY: {
       color: <?php echo '"'.color_map('NY', $states_arr).'",'; ?>
       name: "New York",
-      url: "displayData.php?state=NY"
+      url: "display/displayData.php?state=NY"
     },
     PA: {
       color: <?php echo '"'.color_map('PA', $states_arr).'",'; ?>
       name: "Pennsylvania",
-      url: "displayData.php?state=PA"
+      url: "display/displayData.php?state=PA"
     },
     NJ: {
       color: <?php echo '"'.color_map('NJ', $states_arr).'",'; ?>
       name: "New Jersey",
-      url: "displayData.php?state=NJ"
+      url: "display/displayData.php?state=NJ"
     },
     DE: {
       color: <?php echo '"'.color_map('DE', $states_arr).'",'; ?>
       name: "Delaware",
-      url: "displayData.php?state=DE"
+      url: "display/displayData.php?state=DE"
     },
     MD: {
       color: <?php echo '"'.color_map('MD', $states_arr).'",'; ?>
       name: "Maryland",
-      url: "displayData.php?state=MD"
+      url: "display/displayData.php?state=MD"
     },
     VA: {
       color: <?php echo '"'.color_map('VA', $states_arr).'",'; ?>
       name: "Virginia",
-      url: "displayData.php?state=VA"
+      url: "display/displayData.php?state=VA"
     },
     WV: {
       color: <?php echo '"'.color_map('WV', $states_arr).'",'; ?>
       name: "West Virginia",
-      url: "displayData.php?state=WV"
+      url: "display/displayData.php?state=WV"
     },
     OH: {
       color: <?php echo '"'.color_map('OH', $states_arr).'",'; ?>
       name: "Ohio",
-      url: "displayData.php?state=OH"
+      url: "display/displayData.php?state=OH"
     },
     IN: {
       color: <?php echo '"'.color_map('IN', $states_arr).'",'; ?>
       name: "Indiana",
-      url: "displayData.php?state=IN"
+      url: "display/displayData.php?state=IN"
     },
     IL: {
       color: <?php echo '"'.color_map('IL', $states_arr).'",'; ?>
       name: "Illinois",
-      url: "displayData.php?state=IL"
+      url: "display/displayData.php?state=IL"
     },
     CT: {
       color: <?php echo '"'.color_map('CT', $states_arr).'",'; ?>
       name: "Connecticut",
-      url: "displayData.php?state=CT"
+      url: "display/displayData.php?state=CT"
     },
     WI: {
       color: <?php echo '"'.color_map('WI', $states_arr).'",'; ?>
       name: "Wisconsin",
-      url: "displayData.php?state=WI"
+      url: "display/displayData.php?state=WI"
     },
     NC: {
       color: <?php echo '"'.color_map('NC', $states_arr).'",'; ?>
       name: "North Carolina",
-      url: "displayData.php?state=NC"
+      url: "display/displayData.php?state=NC"
     },
     DC: {
       color: <?php echo '"'.color_map('DC', $states_arr).'",'; ?>
       name: "District of Columbia",
-      url: "displayData.php?state=DC"
+      url: "display/displayData.php?state=DC"
     },
     MA: {
       color: <?php echo '"'.color_map('MA', $states_arr).'",'; ?>
       name: "Massachusetts",
-      url: "displayData.php?state=MA"
+      url: "display/displayData.php?state=MA"
     },
     TN: {
       color: <?php echo '"'.color_map('TN', $states_arr).'",'; ?>
       name: "Tennessee",
-      url: "displayData.php?state=TN"
+      url: "display/displayData.php?state=TN"
     },
     AR: {
       color: <?php echo '"'.color_map('AR', $states_arr).'",'; ?>
       name: "Arkansas",
-      url: "displayData.php?state=AR"
+      url: "display/displayData.php?state=AR"
     },
     MO: {
       color: <?php echo '"'.color_map('MO', $states_arr).'",'; ?>
       name: "Missouri",
-      url: "displayData.php?state=MO"
+      url: "display/displayData.php?state=MO"
     },
     GA: {
       color: <?php echo '"'.color_map('AG', $states_arr).'",'; ?>
       name: "Georgia",
-      url: "displayData.php?state=GA"
+      url: "display/displayData.php?state=GA"
     },
     SC: {
       color: <?php echo '"'.color_map('SC', $states_arr).'",'; ?>
       name: "South Carolina",
-      url: "displayData.php?state=SC"
+      url: "display/displayData.php?state=SC"
     },
     KY: {
       color: <?php echo '"'.color_map('KY', $states_arr).'",'; ?>
       name: "Kentucky",
-      url: "displayData.php?state=KY",
+      url: "display/displayData.php?state=KY",
       zoomable: "no"
     },
     AL: {
       color: <?php echo '"'.color_map('AL', $states_arr).'",'; ?>
       name: "Alabama",
-      url: "displayData.php?state=AL"
+      url: "display/displayData.php?state=AL"
     },
     LA: {
       color: <?php echo '"'.color_map('LA', $states_arr).'",'; ?>
       name: "Louisiana",
-      url: "displayData.php?state=LA"
+      url: "display/displayData.php?state=LA"
     },
     MS: {
       color: <?php echo '"'.color_map('MS', $states_arr).'",'; ?>
       name: "Mississippi",
-      url: "displayData.php?state=MS"
+      url: "display/displayData.php?state=MS"
     },
     IA: {
       color: <?php echo '"'.color_map('IA', $states_arr).'",'; ?>
       name: "Iowa",
-      url: "displayData.php?state=IA"
+      url: "display/displayData.php?state=IA"
     },
     MN: {
       color: <?php echo '"'.color_map('MN', $states_arr).'",'; ?>
       name: "Minnesota",
-      url: "displayData.php?state=MN"
+      url: "display/displayData.php?state=MN"
     },
     OK: {
       color: <?php echo '"'.color_map('OK', $states_arr).'",'; ?>
       name: "Oklahoma",
-      url: "displayData.php?state=OK"
+      url: "display/displayData.php?state=OK"
     },
     TX: {
       color: <?php echo '"'.color_map('TX', $states_arr).'",'; ?>
       name: "Texas",
-      url: "displayData.php?state=TX"
+      url: "display/displayData.php?state=TX"
     },
     NM: {
       color: <?php echo '"'.color_map('NM', $states_arr).'",'; ?>
       name: "New Mexico",
-      url: "displayData.php?state=NM"
+      url: "display/displayData.php?state=NM"
     },
     KS: {
       color: <?php echo '"'.color_map('KS', $states_arr).'",'; ?>
       name: "Kansas",
-      url: "displayData.php?state=KS"
+      url: "display/displayData.php?state=KS"
     },
     NE: {
       color: <?php echo '"'.color_map('NE', $states_arr).'",'; ?>
       name: "Nebraska",
-      url: "displayData.php?state=NE"
+      url: "display/displayData.php?state=NE"
     },
     SD: {
       color: <?php echo '"'.color_map('SD', $states_arr).'",'; ?>
       name: "South Dakota",
-      url: "displayData.php?state=SD"
+      url: "display/displayData.php?state=SD"
     },
     ND: {
       color: <?php echo '"'.color_map('ND', $states_arr).'",'; ?>
       name: "North Dakota",
-      url: "displayData.php?state=ND"
+      url: "display/displayData.php?state=ND"
     },
     WY: {
       color: <?php echo '"'.color_map('WY', $states_arr).'",'; ?>
       name: "Wyoming",
-      url: "displayData.php?state=WY"
+      url: "display/displayData.php?state=WY"
     },
     MT: {
       color: <?php echo '"'.color_map('MT', $states_arr).'",'; ?>
       name: "Montana",
-      url: "displayData.php?state=MT"
+      url: "display/displayData.php?state=MT"
     },
     CO: {
       color: <?php echo '"'.color_map('CO', $states_arr).'",'; ?>
       name: "Colorado",
-      url: "displayData.php?state=CO"
+      url: "display/displayData.php?state=CO"
     },
     UT: {
       color: <?php echo '"'.color_map('UT', $states_arr).'",'; ?>
       name: "Utah",
-      url: "displayData.php?state=UT"
+      url: "display/displayData.php?state=UT"
     },
     AZ: {
       color: <?php echo '"'.color_map('AZ', $states_arr).'",'; ?>
       name: "Arizona",
-      url: "displayData.php?state=AZ"
+      url: "display/displayData.php?state=AZ"
     },
     NV: {
       color: <?php echo '"'.color_map('NV', $states_arr).'",'; ?>
       name: "Nevada",
-      url: "displayData.php?state=NV"
+      url: "display/displayData.php?state=NV"
     },
     OR: {
       color: <?php echo '"'.color_map('OR', $states_arr).'",'; ?>
       name: "Oregon",
-      url: "displayData.php?state=OR"
+      url: "display/displayData.php?state=OR"
     },
     WA: {
       color: <?php echo '"'.color_map('WA', $states_arr).'",'; ?>
       name: "Washington",
-      url: "displayData.php?state=WA"
+      url: "display/displayData.php?state=WA"
     },
     CA: {
       color: <?php echo '"'.color_map('CA', $states_arr).'",'; ?>
       name: "California",
-      url: "displayData.php?state=CA"
+      url: "display/displayData.php?state=CA"
     },
     MI: {
       color: <?php echo '"'.color_map('MI', $states_arr).'",'; ?>
       name: "Michigan",
-      url: "displayData.php?state=MI"
+      url: "display/displayData.php?state=MI"
     },
     ID: {
       color: <?php echo '"'.color_map('ID', $states_arr).'",'; ?>
       name: "Idaho",
-      url: "displayData.php?state=ID"
+      url: "display/displayData.php?state=ID"
     },
     GU: {
       color: <?php echo '"'.color_map('GU', $states_arr).'",'; ?>
       hide: "yes",
       name: "Guam",
-      url: "displayData.php?state=GU"
+      url: "display/displayData.php?state=GU"
     },
     VI: {
       color: <?php echo '"'.color_map('VI', $states_arr).'",'; ?>
       hide: "yes",
       name: "Virgin Islands",
-      url: "displayData.php?state=VI"
+      url: "display/displayData.php?state=VI"
     },
     PR: {
       color: <?php echo '"'.color_map('PR', $states_arr).'",'; ?>
       hide: "yes",
       name: "Puerto Rico",
-      url: "displayData.php?state=PR"
+      url: "display/displayData.php?state=PR"
     },
     MP: {
       color: <?php echo '"'.color_map('MP', $states_arr).'",'; ?>
       hide: "yes",
       name: "Northern Mariana Islands",
-      url: "displayData.php?state=MP"
+      url: "display/displayData.php?state=MP"
     },
     AS: {
       color: <?php echo '"'.color_map('AS', $states_arr).'",'; ?>
       hide: "yes",
       name: "American Samoa",
-      url: "displayData.php?state=AS"
+      url: "display/displayData.php?state=AS"
     }
   },
   locations: {
@@ -789,8 +789,10 @@ var simplemaps_usmap_mapdata={
     <script src="usmap.js"></script>
     <style>
       #mapDiv {
-        height: 75%;
-        width: 75%;
+        max-height: 65%;
+        max-width: 65%;
+        margin-left: auto;
+        margin-right: auto;
       }
     </style>
   </head>
@@ -814,7 +816,7 @@ var simplemaps_usmap_mapdata={
     <li style="background-color: #6495ED"></li><li style="background-color: #4682B4"></li><li style="background-color: #4169E1"></li><li style="background-color: #0000CD"></li><li style="background-color: #191970"></li>
   </ul>
 </div>      
-      <p>I used SimpleMaps to create this map and edited some of their code, but the text below is best left where it is.</p> <br/>
+      <p>I used Simplemaps.com to create this map and edited some of their code, but the text below is best left where it is.</p> <br/>
       <p>This map was created and can be edited at <a href="http://simplemaps.com/custom/us/SFRXcTHp">http://simplemaps.com/custom/us/SFRXcTHp</a>
     
     

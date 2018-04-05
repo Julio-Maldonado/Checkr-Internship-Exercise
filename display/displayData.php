@@ -2,7 +2,7 @@
 
 // Gets the data for the requested state from my API endpoint and returns it sorted by fyDeclared
 function get_data_for_state($state) {
-  $url = 'http://projects.cse.tamu.edu/juliom72/modifyData.php?$key=fyDeclared&$filter='.$state;
+  $url = 'http://projects.cse.tamu.edu/juliom72/data/endpoint.php?$key=fyDeclared&$filter='.$state;
   $arr = json_decode(file_get_contents($url),true);
   return $arr;
 }
